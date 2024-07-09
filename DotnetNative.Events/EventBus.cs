@@ -33,8 +33,9 @@ public class EventBus<T> where T : Event
 
     public void UnregisterTypeAll(Type listener)
     {
-        foreach (Subscriber<T> subscriber in Subscribers.Where(z => z.Listener.Equals(listener)))
-            Subscribers.Remove(subscriber);
+        foreach (Subscriber<T> subscriber in Subscribers)
+            if (subscriber.Listener.Equals(listener))
+                Subscribers.Remove(subscriber);
     }
 
     public void UnregisterAll(object listener) => UnregisterTypeAll(listener.GetType());
